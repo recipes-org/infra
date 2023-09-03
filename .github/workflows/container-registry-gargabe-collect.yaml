@@ -1,3 +1,6 @@
+---
+name: Container Registry GC
+
 on:
   schedule:
     - cron:  "37 4 * * *"
