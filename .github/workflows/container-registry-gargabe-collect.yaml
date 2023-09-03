@@ -1,0 +1,14 @@
+on:
+  schedule:
+    - cron:  "37 4 * * *"
+  workflow_dispatch:
+
+jobs:
+  gc:
+    name: Container Registry Garbage Collect
+    runs-on: ubuntu-latest
+    steps:
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_CI }}
+      - run: doctl registry garbage-collection start --include-untagged-manifests --force
