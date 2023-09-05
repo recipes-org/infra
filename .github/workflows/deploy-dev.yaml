@@ -1,0 +1,24 @@
+---
+name: Deploy Dev
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+
+env:
+  FORCE_COLOR: ${{ vars.FORCE_COLOR }}
+  DEV_SPEC_PATH: do/app_specs/dev.yaml
+
+jobs:
+  deploy:
+    name: Deploy Dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_CI }}
+      - run: doctl apps update ${{ secrets.RECIPES_APP_ID }} --spec $DEV_SPEC_PATH
+      - run: doctl registry garbage-collection start --include-untagged-manifests --force
