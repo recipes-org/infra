@@ -9,7 +9,7 @@ on:
 
 env:
   FORCE_COLOR: ${{ vars.FORCE_COLOR }}
-  DEV_SPEC_PATH: do/app_specs/dev.yaml
+  DEV_SPEC_PATH: dev/do/app_spec.yaml
 
 jobs:
   deploy:
