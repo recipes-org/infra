@@ -21,11 +21,11 @@ table "requirements" {
     null = false
     type = varchar(36)
   }
-  column "ingredient_id" {
+  column "ingredient" {
     null = false
     type = varchar(36)
   }
-  column "measurement_id" {
+  column "measurement" {
     null = false
     type = varchar(36)
   }
@@ -34,7 +34,7 @@ table "requirements" {
     type = real
   }
   primary_key {
-    columns = [column.recipe_id, column.ingredient_id]
+    columns = [column.recipe_id, column.ingredient]
   }
   foreign_key "recipe_fk" {
     columns = [column.recipe_id]
