@@ -1,6 +1,9 @@
 alerts:
   - rule: DEPLOYMENT_FAILED
   - rule: DOMAIN_FAILED
+domains:
+  - domain: dev.colunch.app
+    type: PRIMARY
 ingress:
   rules:
     - component:
