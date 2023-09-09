@@ -1,5 +1,5 @@
 ---
-name: Deploy DB Dev
+name: Dev DB Migrations
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ env:
 
 jobs:
   deploy:
-    name: Deploy DB Dev
+    name: Dev DB Migrations
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,10 +22,6 @@ jobs:
         with:
           token: ${{ secrets.DO_CI }}
       - run: curl -sSf https://atlasgo.sh | sh
-      - run: |
-          atlas migrate status \
-            --url ${{ secrets.DEV_DB_URL }} \
-            --dir "file://dev/do/migrations"
       - run: |
           atlas migrate diff \
             --dir "file://dev/do/migrations/" \
