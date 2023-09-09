@@ -1,0 +1,41 @@
+---
+name: Deploy DB Dev
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - dev/do/app_spec.yaml
+  workflow_dispatch:
+
+
+env:
+  FORCE_COLOR: ${{ vars.FORCE_COLOR }}
+  DEV_SPEC_PATH: dev/do/app_spec.yaml
+
+jobs:
+  deploy:
+    name: Deploy DB Dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_CI }}
+      - run: curl -sSf https://atlasgo.sh | sh
+      - run: |
+          atlas migrate diff init \
+            --dir "file://dev/do/migrations/" \
+            --to  "file://dev/do/db.hcl" \
+            --dev-url ${{ secrets.DEV_DB_URL }}
+      - run: |
+          atlas migrate apply \
+            --dir "file://dev/do/migrations/" \
+            --url "${{ secrets.DEV_DB_URL }} \
+            --dry-run
+      - run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+      - uses: peter-evans/create-pull-request@v5
+        with:
+          add-paths: dev/do/migrations/*
+          token: ${{ secrets.COLUNCH_INFRA_DB_DEV_GHA }}
+          branch: db-dev/${{ env.SHA_SHORT }}
