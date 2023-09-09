@@ -4,6 +4,8 @@ name: Deploy Dev
 on:
   pull_request:
     branches: [ "main" ]
+    paths:
+      - dev/do/app_spec.yaml
   workflow_dispatch:
 
 
