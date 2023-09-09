@@ -23,7 +23,7 @@ jobs:
           token: ${{ secrets.DO_CI }}
       - run: curl -sSf https://atlasgo.sh | sh
       - run: |
-          atlas migrate diff init \
+          atlas migrate diff \
             --dir "file://dev/do/migrations/" \
             --to  "file://dev/do/db.hcl" \
             --dev-url ${{ secrets.DEV_DB_URL }}
