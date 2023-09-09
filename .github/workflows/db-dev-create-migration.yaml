@@ -23,14 +23,18 @@ jobs:
           token: ${{ secrets.DO_CI }}
       - run: curl -sSf https://atlasgo.sh | sh
       - run: |
+          atlas migrate status \
+            --url ${{ secrets.DEV_DB_URL }} \
+            --dir "file://dev/do/migrations"
+      - run: |
           atlas migrate diff \
             --dir "file://dev/do/migrations/" \
             --to  "file://dev/do/db.hcl" \
-            --dev-url ${{ secrets.DEV_DB_URL }}
+            --dev-url ${{ secrets.DEV_DB_URL }}?search_path=public
       - run: |
           atlas migrate apply \
             --dir "file://dev/do/migrations/" \
-            --url "${{ secrets.DEV_DB_URL }}" \
+            --url "${{ secrets.DEV_DB_URL }}?search_path=public" \
             --dry-run
       - run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
       - uses: peter-evans/create-pull-request@v5
