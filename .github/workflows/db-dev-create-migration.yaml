@@ -5,13 +5,12 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - dev/do/app_spec.yaml
+      - dev/do/db.hcl
   workflow_dispatch:
 
 
 env:
   FORCE_COLOR: ${{ vars.FORCE_COLOR }}
-  DEV_SPEC_PATH: dev/do/app_spec.yaml
 
 jobs:
   deploy:
