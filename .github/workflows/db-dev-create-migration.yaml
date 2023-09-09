@@ -35,6 +35,8 @@ jobs:
       - run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
       - uses: peter-evans/create-pull-request@v5
         with:
+          title: Deploy DB DEV ${{ env.SHA_SHORT }}
           add-paths: dev/do/migrations/*
           token: ${{ secrets.COLUNCH_INFRA_DB_DEV_GHA }}
           branch: db-dev/${{ env.SHA_SHORT }}
+          base: ${{ github.head_ref }}
