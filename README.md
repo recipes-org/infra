@@ -5,6 +5,14 @@
 - 2 service clusters, "apps"
 - `colunch-dev` and `colunch-prod`
 
+## Apps
+
+Get an app id
+
+```shell
+doctl apps list --format "ID, Spec.Name" --no-header | grep dev | cut -d " " -f1
+```
+
 ## DBs
 
 - Test a schema update out locally.
