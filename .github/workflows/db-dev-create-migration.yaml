@@ -30,7 +30,7 @@ jobs:
       - run: |
           atlas migrate apply \
             --dir "file://dev/do/migrations/" \
-            --url "${{ secrets.DEV_DB_URL }} \
+            --url "${{ secrets.DEV_DB_URL }}" \
             --dry-run
       - run: echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
       - uses: peter-evans/create-pull-request@v5
