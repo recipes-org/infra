@@ -6,6 +6,7 @@ alerts:
 domains:
 - domain: dev.colunch.app
   type: PRIMARY
+  zone: colunch.app
 ingress:
   rules:
   - component:
