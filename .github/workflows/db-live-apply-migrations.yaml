@@ -1,0 +1,25 @@
+---
+name: Live DB Apply
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - live/do/migrations/*
+  workflow_dispatch:
+
+env:
+  FORCE_COLOR: ${{ vars.FORCE_COLOR }}
+
+jobs:
+  deploy:
+    name: Live DB Migrations Apply
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: curl -sSf https://atlasgo.sh | sh
+      - run: |
+          atlas migrate apply \
+            --dir "file://live/do/migrations/" \
+            --url "${{ secrets.LIVE_DB_URL }}" \
+            --revisions-schema public
