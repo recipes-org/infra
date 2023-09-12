@@ -3,6 +3,14 @@ alerts:
 - rule: DEPLOYMENT_LIVE
 - rule: DOMAIN_FAILED
 - rule: DOMAIN_LIVE
+databases:
+- cluster_name: colunch-dev
+  db_name: defaultdb
+  db_user: doadmin
+  engine: PG
+  name: colunch-dev
+  production: true
+  version: "15"
 domains:
 - domain: dev.colunch.app
   type: PRIMARY
@@ -24,6 +32,9 @@ services:
   - key: RECIPES_PORT
     scope: RUN_AND_BUILD_TIME
     value: "8080"
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    value: ${colunch-dev.DATABASE_URL}
   health_check:
     http_path: /docs
     period_seconds: 5
