@@ -35,6 +35,9 @@ services:
   - key: DATABASE_URL
     scope: RUN_TIME
     value: ${colunch-dev.DATABASE_URL}
+  - key: RECIPES_SCHEMA_NAME
+    scope: RUN_AND_BUILD_TIME
+    value: recipes
   health_check:
     http_path: /docs
     period_seconds: 5
@@ -44,7 +47,7 @@ services:
     deploy_on_push: {}
     registry_type: DOCR
     repository: recipes-org/svc-recipes
-    tag: 0.1.0
+    tag: 0.3.1
   instance_count: 1
   instance_size_slug: basic-xxs
   name: recipes-org-svc-recipes
