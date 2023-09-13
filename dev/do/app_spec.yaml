@@ -35,6 +35,9 @@ services:
   - key: DATABASE_URL
     scope: RUN_TIME
     value: ${colunch-dev.DATABASE_URL}
+  - key: RECIPES_SCHEMA_NAME
+    scope: RUN_AND_BUILD_TIME
+    value: recipes
   health_check:
     http_path: /docs
     period_seconds: 5
