@@ -1,4 +1,27 @@
+schema "public" {}
 schema "recipes" {}
+schema "ingredients" {}
+
+table "ingredients" {
+  schema = schema.ingredients
+  column "id" {
+    null = false
+    type = varchar(36)
+  }
+  column "name" {
+    null = false
+    type = varchar(36)
+  }
+  primary_key {
+    columns = [column.id]
+  }
+  index "idx_name" {
+    columns = [
+      column.name
+    ]
+    unique = true
+  }
+}
 
 table "recipes" {
   schema = schema.recipes
