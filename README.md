@@ -29,7 +29,7 @@ doctl apps list --format "ID, Spec.Name" --no-header | grep dev | cut -d " " -f1
 Local db
 
 ```shell
-export RECIPES_DB_URL="postgresql://postgres:postgres@localhost:5432/postgres?sslmode=disable"
+export DB_URL="postgresql://postgres:postgres@localhost:5432/postgres?sslmode=disable"
 ```
 
 Create a migration
@@ -38,7 +38,7 @@ Create a migration
 atlas migrate diff init \
       --dir "file://dev/do/migrations/" \
       --to  "file://dev/do/db.hcl" \
-      --dev-url $RECIPES_DB_URL
+      --dev-url $DB_URL
 ```
 
 Apply migrations
