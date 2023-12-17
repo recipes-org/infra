@@ -19,4 +19,5 @@ jobs:
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DO_CI }}
+      - run: doctl serverless install
       - run: doctl serverless deploy colunch-dev
