@@ -17,6 +17,7 @@ jobs:
         with:
           repository: recipes-org/functions
           ref: main
+          token: ${{ secrets.INFRAPAT }}
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DO_CI }}
