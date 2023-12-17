@@ -14,8 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: recipes-org/functions
+        with:
+          repository: recipes-org/functions
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DO_CI }}
+      - run: doctl serverless install
+      - run: doctl serverless connect colunch-dev-function
       - run: doctl serverless deploy colunch-dev
