@@ -1,0 +1,21 @@
+---
+name: Deploy Functions Dev
+
+on:
+  workflow_dispatch:
+
+
+env:
+  FORCE_COLOR: ${{ vars.FORCE_COLOR }}
+
+jobs:
+  deploy:
+    name: Deploy Functions Dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: recipes-org/functions
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_CI }}
+      - run: doctl serverless deploy colunch-dev
