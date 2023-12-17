@@ -20,4 +20,5 @@ jobs:
         with:
           token: ${{ secrets.DO_CI }}
       - run: doctl serverless install
+      - run: doctl serverless connect colunch-dev-function
       - run: doctl serverless deploy colunch-dev
